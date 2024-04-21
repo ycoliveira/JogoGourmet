@@ -89,14 +89,14 @@ public class GameEngine
 
     private void CreateNewFood(List<FoodItem> currentFoods, List<string> confirmedCharacteristics, List<FoodItem> foods)
     {
-        var newFoodName = PromptForInput("Não sei o que você pensou. Qual  prato você pensou?");
+        var newFoodName = PromptForInput("Não sei o que você pensou. Qual  prato você pensou?", "Desisto");
         if (newFoodName == null)
         {
             ResetGame();
             return;
         }
         var anotherFoodInList = currentFoods.Count > 0 ? currentFoods.Last().Name : BOLO_CHOCOLATE;
-        var newFoodCharacteristic = PromptForInput($"Um(a) {newFoodName} é _____ mas um(a) {anotherFoodInList} não.");
+        var newFoodCharacteristic = PromptForInput($"Um(a) {newFoodName} é _____ mas um(a) {anotherFoodInList} não.", "Complete");
         if (newFoodCharacteristic == null)
         {
             ResetGame();
@@ -109,15 +109,15 @@ public class GameEngine
         StartGame();
     }
 
-    private static string? PromptForInput(string prompt)
+    private static string? PromptForInput(string prompt, string titulo)
     {
         Form promptForm = new()
         {
             Width = 500,
             Height = 150,
             FormBorderStyle = FormBorderStyle.FixedDialog,
-            Text = prompt,
-            StartPosition = FormStartPosition.CenterParent
+            Text = titulo,
+            StartPosition = FormStartPosition.CenterParent,
         };
 
         Label textLabel = new() { Left = 50, Top = 20, Width = 450, Height = 50, Text = prompt };
@@ -132,15 +132,13 @@ public class GameEngine
         promptForm.Controls.Add(textLabel);
         promptForm.AcceptButton = confirmationButton;
         promptForm.CancelButton = cancelButton;
-        promptForm.FormClosing += (sender, e) => { Application.Exit(); };
 
         return promptForm.ShowDialog() == DialogResult.OK ? textBox.Text.Trim().ToLower() : null;
     }
 
     private void ResetGame()
     {
-        MessageBox.Show("Rodada cancelada. Reiniciando o jogo", "Jogo Gourmet");
-        StartGame();
+        MessageBox.Show("Rodada cancelada.", "Jogo Gourmet");
         return;
     }
 }

@@ -26,7 +26,7 @@ namespace JogoGourmet
         {
             gameEngine = new GameEngine();
 
-            middleText = new Label() { Text = "Pense em um prato que gosta", TextAlign = ContentAlignment.TopCenter, Dock = DockStyle.Fill, AutoSize = false, Padding = new Padding(0, 20, 0, 0) };
+            middleText = new Label() { Text = "Pense em um prato que gosta.", TextAlign = ContentAlignment.TopCenter, Dock = DockStyle.Fill, AutoSize = false, Padding = new Padding(0, 20, 0, 0) };
 
             startButton = new Button() { Text = "Iniciar Jogo", Dock = DockStyle.None, Location = new Point((this.ClientSize.Width - 100) / 2, this.ClientSize.Height - 50) };
             startButton.Click += (sender, e) => gameEngine.StartGame();
